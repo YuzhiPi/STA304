@@ -1,12 +1,19 @@
+#### Preamble ####
+# Purpose: To clean the data and getting it ready for plotting and table formatting
+# Author: Yuzhi Pi
+# Date: Feb 6, 2022
+# Contact: sherry.pi@mail.utoronto.ca
+# License: MIT
+# Pre-requisites: install package opendatatoronto; dplyr; tidyvers and kableExtra
 
-
-#Load package needed for this assignment
+#### Work Place Setup ####
 library(opendatatoronto)
 library(dplyr)
 library(tidyverse)
 library(kableExtra)
 
 # Below is copied from https://open.toronto.ca/dataset/police-annual-statistical-report-homicide/ under "for developers"
+# Steps to load the data from Open Data Toronto
 
 # get package
 package <- show_package("7d72bbbe-8adc-4b36-8ad1-5359f1c7a9cc")
