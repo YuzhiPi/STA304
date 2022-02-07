@@ -22,11 +22,8 @@ library(kableExtra)
 
 
 ```{r, echo= FALSE, include= FALSE}
-# Below is copied from https://open.toronto.ca/dataset/police-annual-statistical-report-homicide/ under "for developers"
-
 # get package
 package <- show_package("7d72bbbe-8adc-4b36-8ad1-5359f1c7a9cc")
-
  
 # get all resources for this package
 resources <- list_package_resources("7d72bbbe-8adc-4b36-8ad1-5359f1c7a9cc")
@@ -53,7 +50,6 @@ class(data)
 
 glimpse(data)
 ```
-
 # Introduction
 
 Home to approximately 2.8 million people, the city of Toronto is the largest city in Canada and the fourth-largest city across North America. With its great reputation in education, finance, and cultural diversity, Toronto attracts many international students and immigrants, including myself, every year to Canada - in 2016, 47% of Toronto’s population is composed of immigrants [@Immigration]. Immigration is a key factor for achieving economic prosperity in Canada. According to the Government of Canada, immigrants increase the size of the labour force, tax revenue, and general goods consumption, which would ultimately increase Canada’s GDP [@Policy].  
@@ -63,7 +59,6 @@ With this, the safety of Toronto is often seen as a key evaluative criterion for
 More specifically, the analysis in this report will primarily focus on three aspects of Toronto’s homicide trends - its occurrence (measured in both years and months), the location (segregated based on Toronto police districts), and types of homicide. For this report, we are specifically interested in investigating the trend of homicide, to testify whether there has been a rising trend. Other than this, the statistical analysis will provide an insight into the occurrence of homicide - whether homicides are especially likely to occur in a certain month or location. Understanding the occurrence pattern of homicide will significantly improve Toronto police’s ability to react, or even prevent the crime. More budget and resources could be allocated to the locations that are more likely for crime to take place, while the police could also increase the frequency of patrol duty during more dangerous months. Lastly, this report will provide a better understanding of the types of homicide, which is especially important for politicians. This could help them to understand whether the “gun ban” has been effective at cutting the frequency of shootings, and what else should the government consider other than banning certain types of guns from licensed owners in order to better protect Canadians [@GunBan].  
 
 All the analysis in this report will be based on data obtained from the Police Annual Statistical Report, published by Toronto Police Service on Open Data Toronto [@Data], and analyzed using R [@R]. Resources regarding this report are available on GitHub. ^[https://github.com/YuzhiPi/STA304]  
-  
   
 # Data Section  
   
@@ -75,7 +70,6 @@ However, the fact that this dataset only includes reported homicide could lead t
 Moreover, homicide towards children is another homicide category that is often overlooked and therefore underreported. Homicide against children are hard to detect by the police as it is extremely challenging for the victim, in this situation, the children, to report the crime or the abusive activities that eventually lead to homicide. It is also a lot easier for the offenders, most of the cases are childrens’ parents, family members to report such crime with a false cause, therefore avoiding the investigation and will not be recorded by the police [@ChildHomicide]. Hence, the major bias of this dataset is that it could be missing records on intrafamilial homicide, including the murder of intimate partner and children.  
 
 On the other hand, the strength of the source is that it is maintained by the Toronto Police Service, which is the organization that should be able to obtain homicide data that is the closest to the actual homicide data. Although, as discussed above, a portion of the homicide case will be underreported and therefore excluded from the list, the dataset will contain 100% of the reported homicide. Consequently, the data used in this report will be the closest representation of the actual homicide cases, if considering the unreported cases.   
-  
 
 ## Data Characteristic
 The original Homicide dataset from Open Data Toronto includes 1166 entries of data and 10 columns in total. Below is an in-depth explanation on the meaning of each column, while the title of the column as shown per dataset is listed in brackets. Each row in the dataset represents one victim.  
@@ -112,15 +106,15 @@ cleaned_data <- cleaned_data[-c(6)]
 ## Analysis on Key Variables
 All graphs presented below were constructed using ggplot2 [@ggplot2].  
 
-
 ### General Trend of Homicidee Occurance
-```{r, message = FALSE, echo = FALSE}
+
+As Toronto’s start of 2022 has been significantly more violent than previous years, some have criticized that this indicates an overall uprising trend in Toronto’s homicide case. However, the dataset suggests otherwise. Figure 1 displays the historical homicide crime case per year, from 2004 to 2020. From the graph, there is an obvious downward trend in the number of homicide cases from 2018 to 2020 - the number of cases has dropped by 26.8% from 2018 to 2020. This means that at least given the currently available data, it should not be concluded that there is an uprising trend in homicide cases overall. In reality, based on past data, Toronto’s average homicide cases range between five to eight for the month of January [@Violent]. Therefore, there is a lack of evidence to conclude the overall trend based on the number of killings during the first three days of 2022. 
+```{r, message = FALSE, echo = FALSE, width = 7, height = 5}
 #Trend of Count of Homicide by Year
 cleaned_data %>% ggplot(aes(x= Occurrence_year)) + geom_bar() + theme_classic() +
   labs(x = "Occurence Year", y = "Frequency", title = "Figure 1: Summmary of Homicide by Occurrence Year")+
   geom_text(stat = 'count', aes(label = ..count..,vjust = -0.5))
 ```
-As Toronto’s start of 2022 has been significantly more violent than previous years, some have criticized that this indicates an overall uprising trend in Toronto’s homicide case. However, the dataset suggests otherwise. Figure 1 displays the historical homicide crime case per year, from 2004 to 2020. From the graph, there is an obvious downward trend in the number of homicide cases from 2018 to 2020 - the number of cases has dropped by 26.8% from 2018 to 2020. This means that at least given the currently available data, it should not be concluded that there is an uprising trend in homicide cases overall. In reality, based on past data, Toronto’s average homicide cases range between five to eight for the month of January [@Violent]. Therefore, there is a lack of evidence to conclude the overall trend based on the number of killings during the first three days of 2022. 
 
 On the other hand, it is noticeable that the case number increased dramatically in 2018 from 65 cases in 2017 to 97 cases in 2018. There is an obvious trend that the number of cases usually ranges around 60 from 2009 to 2017 (62, 65, 51, 57, 57, 58, 59, 75, 65 cases, respectively), with a sudden increase to 97 in 2017. This is potentially due to the uprising amount of gun violence in the city. Toronto’s police chief Mark Saunders also commented on the spike of homicide cases in 2018, making the connection between the surge in numbers of handguns recovered on the street (from 292 in 2017 to 514 in 2018) [@2018Data].  
   
@@ -151,7 +145,7 @@ Other than the seasonality of homicide, the dataset also allows us to further in
 Figure 3 outlines the tremendous difference in the number of homicide cases between different police districts and neighbourhoods. It is clear that some divisions are significantly more dangerous and deadly than others. There could be multiple factors influencing the number of homicides in a division, but the disparity suggests that there is a great need for Toronto Police to allocate more resources to these divisions. 
 
 ### Trends in Different Types of Homicide  
-The dataset also includes information on the types of homicide, and all the cases are classfied in three categories: shooting, stabbing, and other. Table one outlines the total number of cases of each type of homicide per year, and the proportion of each type for the year. I constructed the table using the package knitr [@knitr] and kableExtra [@kableExtra]. By grouping the data first by its occurrence year using function "group_by" and count each type of homicide within each year using function "count", I was able to get the number of each type of homicide case per year and then calculate the percentage accordingly. The functions are from package dplyr [@dplyr].
+The dataset also includes information on the types of homicide, and all the cases are classfied in three categories: shooting, stabbing, and other. Table one outlines the total number of cases of each type of homicide per year, and the proportion of each type for the year. I constructed the table using the package knitr [@knitr] and kableExtra [@kableExtra]. By grouping the data first by its occurrence year using function "group_by" and count each type of homicide within each year using function "count", I was able to get the number of each type of homicide case per year and then calculate the percentage accordingly. The functions are from package dplyr [@Dplyr].
 
 The result of the calculation is presented in table one.
 ```{r, message = FALSE, echo = FALSE}
@@ -167,6 +161,8 @@ tableprep <- cleaned_data %>%
 knitr::kable(tableprep, caption = "Summary Table of Homicide Type and Percentage","pipe", align = c("l", "l", "c", "c"), col.names = c("Occurance Year", "Homicide Type", "Number of Cases Per Year", "% of Total Case For the Year"))
 
 ```
+  
+
 Although the table is able to present all data with accurate numbers, to further analyze the trend, stacked line graph will be more appropriate at visulizing the trend. Figure 4 illustrates the actual number of cases for different types of homicide from 2004 to 2020. It is clear that the numbers of homicide caused by shooting have alway surpass the other two categories. It is no surprise that most of the homicide victim is killed due to gun violence, as weapon itself is extremly leathal. Gun violence saw a decreasing trend from 2005 to 2015, where the number of homicide caused by shooting dcreased by 50.9% in total over the 10 years. However the number began to increase since 2016 and reached a second peak in 2018, totalling 51 cases of shooting. 
 
 On the other hand, numbers of other types of homicide have stayed relatively steady in the past years. Stabbing used to be the second common ways for people to get killed, as the number of stabbing cases were larger than all other types from 2006 to 2009. However, since 2010, stabbing has become less dominate. The numbers of homicide caused by stabbing were below other means of homicide between both 2010-2014 and 2016-2019.  
