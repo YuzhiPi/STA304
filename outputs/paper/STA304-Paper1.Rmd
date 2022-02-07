@@ -7,7 +7,7 @@ output:
   pdf_document: default
   html_document:
     df_print: paged
-abstract: 'Data on Toronto Homicide cases from 2005 to 2020 was pulled from Open Data Toronto. The dataset is cleaned and used to analyze the trend in the occurrence of Homicide in Toronto Neighbourhoods. Through the analysis process, there were three major findings: 1) there is a downward trend in the number of homicide cases from 2018 to 2020; 2) homicide is more likely to occur in the summer and early fall, while Division 31 in Toronto is the division with the most homicide cases, and 3) shooting is the most common type of homicide. These findings allow the user of the dataset to have a better understanding of the trends in homicide in Toronto, implementing better policies to more effectively allocate police resources in order to prevent and react to crime.'
+abstract: 'Data on Toronto Homicide cases from 2005 to 2020 was pulled from Open Data Toronto. The dataset is cleaned to analyze the trend in the occurrence of Homicide in Toronto Neighbourhoods. Through the analysis process, there were three major findings: 1) there is a downward trend in the number of homicide cases from 2018 to 2020; 2) homicide is more likely to occur in the summer and early fall, while Division 31 in Toronto is the division with the most homicide cases, and 3) shooting is the most common type of homicide. These findings allow the user of the dataset to have a better understanding of the trends in homicide in Toronto, implementing better policies to more effectively allocate police resources in order to prevent and react to crime.'
 bibliography: reference.bib
 ---
 ```{r, echo= FALSE, include= FALSE}
